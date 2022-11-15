@@ -1,0 +1,144 @@
+#Initialisation des différentes variables et importation de la librairie random
+import random
+player_victories = 0 
+IA_victories = 0 
+Draw = 0
+game = False
+
+#Choix de son pseudo
+Nickname = input("What do I have to call you ?")
+
+
+def pierreFeuilleCiseaux():
+    
+    global Nickname, player_victories, IA_victories, Draw, game
+
+    choice = input(Nickname + ", do you wanna play a little game ?")
+
+    if choice != "yes" and choice != "no" :
+        print("Please, type (yes) or (no).") 
+        choice = input("do you wanna play a little game ?")
+    if choice == "yes" :
+        game = True
+        print("Let's go, the first to reach 3 points wins the game !")
+    elif choice == "no" :
+        game = False
+        print("Ok, see you next time !")
+
+    #Les choix possibles (Pierre/Feuille/Ciseaux ou Quitter)
+    while game :
+        player_choice = input("Rock, Paper, Scissors or Quit ?")
+
+        if player_choice != "rock" and player_choice != "paper" and player_choice != "scissors" and player_choice != "quit" :
+            continue
+        elif player_choice == "rock" :
+            print("Rock VS ...", end=" ")
+        elif player_choice == "paper" :
+            print("Paper VS ...", end=" ")
+        elif player_choice == "scissors" :
+            print("scissors VS ...", end=" ")
+        elif player_choice == "quit" :
+            quit = input("Do you really want to leave ?")
+            if quit == "yes" :
+                print("All right see you around then.")
+                break
+            elif quit == "no" :
+                continue
+
+    #Choix de l'ordinateur
+        randomNumber = random.randint(1,3)
+        if randomNumber == 1 :
+            IA_Choice = "rock"
+            print("Rock !")
+        elif randomNumber == 2 : 
+            IA_Choice = "paper"
+            print("Paper !")
+        else : 
+            IA_Choice = "scissors"
+            print("scissors")
+
+    #Paramètre d'égalité
+        if Nickname != "Zanzam" and player_choice == IA_Choice :
+            print("It's a draw")
+            Draw = Draw + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+
+    #Cas où le joueur est gagnant
+        if Nickname != "Zanzam" and player_choice == "rock" and IA_Choice == "scissors" :
+            print("You win !")
+            player_victories = player_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif Nickname != "Zanzam" and player_choice == "paper" and IA_Choice == "rock" :
+            print("You win !")
+            player_victories = player_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif Nickname != "Zanzam" and player_choice == "scissors" and IA_Choice == "paper" :
+            print("You win !")
+            player_victories = player_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+
+    #Cas où le joueur est perdant
+        if player_choice == "rock" and IA_Choice == "paper" :
+            print("You lose...")
+            IA_victories = IA_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif player_choice == "paper" and IA_Choice == "scissors" :
+            print("You lose...")
+            IA_victories = IA_victories + 1  
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif player_choice == "scissors" and IA_Choice == "rock" :
+            print("You lose...")
+            IA_victories = IA_victories + 1   
+            print(Nickname,player_victories,"Computer",IA_victories) 
+
+    #Easter-egg looser mode
+        if Nickname == "Zanzam" and player_choice == "rock" and IA_Choice == "scissors" :
+            print("You lose !")
+            IA_victories = IA_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif Nickname == "Zanzam" and player_choice == "paper" and IA_Choice == "rock" :
+            print("You lose !")
+            IA_victories = IA_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif Nickname == "Zanzam" and player_choice == "scissors" and IA_Choice == "paper" :
+            print("You lose !")
+            IA_victories = IA_victories + 1
+            print(Nickname,player_victories,"Computer",IA_victories)
+        elif Nickname == "Zanzam" and player_choice == IA_Choice :
+            print("You lose")
+            IA_victories = IA_victories + 1
+            
+
+    #Limite de score pour finir le jeu
+        if player_victories == 3 :
+            print("HA ! You won",Nickname,"!",end=" ")
+            restart = input("Play Again ?")
+            if restart != "yes" and restart != "no" :
+                print("I didn't understand, please type (yes) to play again and (no) to end the game.")
+            elif restart == "yes" :
+                continue
+            elif restart == "no" :
+                print("Goodbye !")
+                break
+
+        if Nickname != "Zanzam" and IA_victories == 3 :
+            print("Hehe you lose here",Nickname,"!",end=" ")
+            restart = input("Play Again ?")
+            if restart == "yes" :
+                continue
+            elif restart == "no" :
+                print("Goodbye !")
+                break        
+
+        if Nickname == "Zanzam" and IA_victories == 3 :
+            print("Ratio Sam + Miaule + Reste digne")
+            restart = input("Play Again ?")
+            if restart != "yes" and restart != "no" :
+                print("I didn't understand, please type (yes) to play again and (no) to end the game.")
+            elif restart == "yes" :
+                continue
+            elif restart == "no" :
+                print("Goodbye !")
+                break                                                   
+        
+pierreFeuilleCiseaux()
